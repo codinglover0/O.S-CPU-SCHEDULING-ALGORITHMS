@@ -1,49 +1,68 @@
-                     #FCFS ALGORITHM
+                                                            #FCFS Algorithm ( arrival time not sorted )
 
-#if arrival time is not sorted.
+#If arrival time either starts with zero(0) or not.
+
 
 '''a is a list containing 5 lists. list a[0] denotes Arrival time(at) , a[1]
 denotes Burst time(bt) , a[2] denotes Completion time(ct) , a[3] denotes
 Turnaround time(tat) and a[4] denotes Waiting time(wt).'''
 
-a=[[1,0,5,2,3],[4,2,6,9,5],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]
 
-#at1 and at are lists of arrival time 
+a=[]
+lst=[]
+
+n = int(input("Enter number of processes : "))
+
+for i in range(2):
+    print("enter elements in list: ",i+1)                           
+    for j in range(0, n):
+        ele = int(input())
+        # adding the element
+        lst.append(ele)
+    a.append(lst)
+    lst=[]     
+
+for i in range(3):
+    for i in range(n):
+        lst.append(0)
+    a.append(lst)   
+    lst=[]    
+        
+
+
+#at1 is unsorted list of arrival time and at is sorted list of arrival time
 at1=a[0]
-at=[1,0,5,2,3]
-
 #gc is a variable initialising it to zero
-g_c=0
-while(len(at)>0):
-    m=min(at)
-    i=at1.index(m)               
-    g_c=g_c+a[1][i]
-    a[2][i]=g_c
-    a[3][i]=a[2][i]-a[0][i]
-    a[4][i]=a[3][i]-a[1][i]
-    at.remove(m)
+
+i=0
+at=sorted(a[0])
+g_c=at[0]
+while(i!=n):
+   
+    m=at[i]
+    k=at1.index(m)             
+    g_c=g_c+a[1][k]
+    a[2][k]=g_c
+    a[3][k]=a[2][k]-a[0][k]
+    a[4][k]=a[3][k]-a[1][k]
+    i+=1
     
-#for printing at,tb,ct.tat,and wt in tabular format
+#for printing at,tb,ct,tat and wt in tabular format    
 print('at\tbt\tct\ttat\twt')
-for i in range(5):    
-    print(a[i][0],end='\t')
-print(end='\n')
-for i in range(5):    
-    print(a[i][1],end='\t')
-print(end='\n')  
-for i in range(5):  
-    print(a[i][2],end='\t')        
-print(end='\n')   
-for i in range(5):
-    print(a[i][3],end='\t')
-print(end='\n') 
-for i in range(5):
-    print(a[i][4],end='\t')
-print(end='\n')
+for i in range(n):
+    for j in range(5):    
+        print(a[j][i],end='\t')
+    print(end='\n')
+       
 
-
-#calculating average waiting time
+#calculating average Turn Around time and Waiting time
 avg_wt=0
-for i in range(5):
+avg_tat=0
+for i in range(n):    
+    avg_tat=avg_tat+a[3][i]
+print('The average turn around time is: ',avg_tat/n)    
+for i in range(n):    
     avg_wt=avg_wt+a[4][i]
-print('The averge waiting time is: ' ,avg_wt/5)
+print('The average waiting time is: ',avg_wt/n)    
+
+
